@@ -1,5 +1,7 @@
 package com.echowire.articlestreamprocessor.sink;
 
+import com.mongodb.ErrorCategory;
+import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoClient;
@@ -62,6 +64,12 @@ public class MongoArticleSink implements SinkFunction<Article> {
             collection.insertOne(doc);
             logger.info("Successfully inserted article: {} to MongoDB", article.title());
 
+        } catch (MongoWriteException e) {
+            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
+                logger.debug("Duplicate article skipped: " + article.link());
+            } else {
+                throw e;
+            }
         } catch (Exception e) {
             logger.error("Error inserting article to MongoDB: {}", e.getMessage(), e);
         }
