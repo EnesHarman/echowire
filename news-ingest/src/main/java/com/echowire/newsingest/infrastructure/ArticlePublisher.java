@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ArticlePublisher {
-    private static final String ARTICLE_TOPIC = "tpc_event";
+    private static final String ARTICLE_TOPIC = "articles";
     private final KafkaTemplate<String, Article> producer;
 
     public ArticlePublisher(KafkaTemplate<String, Article> producer) {
