@@ -26,14 +26,14 @@ public class RssFieldClient {
                         feed.getTitle(),
                         entry.getPublishedDate() != null ?
                                 ZonedDateTime.ofInstant(entry.getPublishedDate().toInstant(), ZoneId.systemDefault()) :
-                                ZonedDateTime.now()
+                                ZonedDateTime.now(),
+                        null
                 );
                 articles.add(article);
             }
         } catch (Exception e) {
             System.err.println("Failed to fetch or parse feed: " + rssUrl + " - " + e.getMessage());
         }
-
 
         return articles;
     }
