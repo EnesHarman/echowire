@@ -1,0 +1,14 @@
+
+type Query {
+    articles(limit: Int = 10): [Article]
+    articleByLink(link: String): Article
+}
+
+type Article {
+    title: String!
+    link: String!
+    source: String
+    description: String
+    publishDate: String
+    category: String
+}

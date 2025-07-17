@@ -17,9 +17,8 @@ public class ArticleStreamJob {
 
     public static void main(String[] args) throws Exception {
         logger.info("Starting EchoWire Article Stream Processor...");
-        
-        var env = StreamExecutionEnvironment.getExecutionEnvironment();
 
+        var env = StreamExecutionEnvironment.getExecutionEnvironment();
         env
                 .fromSource(KafkaConfig.articleKafkaSource(new ArticleKafkaDeserializer()), WatermarkStrategy.noWatermarks(), "Kafka Source")
                 .filter(new FilteringFunction())

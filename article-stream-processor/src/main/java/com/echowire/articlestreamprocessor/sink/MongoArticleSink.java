@@ -12,6 +12,8 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.ZonedDateTime;
+
 public class MongoArticleSink implements SinkFunction<Article> {
 
     private transient MongoClient mongoClient;
@@ -59,6 +61,7 @@ public class MongoArticleSink implements SinkFunction<Article> {
                     .append("description", article.description())
                     .append("source", article.source())
                     .append("publishedAt", article.publishedDate().toString())
+                    .append("createdAt", ZonedDateTime.now())
                     .append("category", article.category());
 
             collection.insertOne(doc);
