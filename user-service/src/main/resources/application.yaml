@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: user-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: echowire
+      auto-index-creation: true
+server:
+  port: 8091
+
+secret:
+  jwt:
+    key: bc48175bdfa426a556d696ea206ef1be56fe535e004a697d8c4043a0d49d2e53
