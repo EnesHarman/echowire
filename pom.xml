@@ -21,6 +21,7 @@
 		<module>article-stream-processor</module>
 		<module>article</module>
 		<module>user-service</module>
+		<module>gateway</module>
 	</modules>
 	<properties>
 		<java.version>21</java.version>

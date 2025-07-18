@@ -17,9 +17,10 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
+        <module name="user-service" />
         <module name="article" />
         <module name="news-ingest" />
-        <module name="user-service" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -32,6 +33,7 @@
       <module name="article-stream-processor" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="echo" options="" />
+      <module name="gateway" options="-parameters" />
       <module name="news-ingest" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
