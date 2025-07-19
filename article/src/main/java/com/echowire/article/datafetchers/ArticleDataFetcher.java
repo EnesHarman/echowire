@@ -7,6 +7,7 @@ import com.netflix.graphql.dgs.InputArgument;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class ArticleDataFetcher {
     }
 
     @DgsQuery
+    @PreAuthorize("hasRole('USER')")
     public Article articleByLink(@InputArgument String link) {
         return mongoTemplate.findOne(Query.query(Criteria.where("link").is(link)), Article.class, "articles");
     }
