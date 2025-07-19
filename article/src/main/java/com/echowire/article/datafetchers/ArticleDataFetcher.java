@@ -1,5 +1,6 @@
 package com.echowire.article.datafetchers;
 
+import com.echowire.article.core.threadlocal.ECThreadLocal;
 import com.echowire.core.model.Article;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
@@ -24,6 +25,7 @@ public class ArticleDataFetcher {
     @DgsQuery
     public List<Article> articles(@InputArgument Integer limit) {
         Query query = new Query().limit(limit != null ? limit : 10);
+        ECThreadLocal.get().userId();
         return mongoTemplate.find(query, Article.class, "articles");
     }
 
