@@ -1,11 +1,10 @@
 package com.echowire.articlestreamprocessor;
 
-import com.echowire.articlestreamprocessor.config.KafkaConfig;
-import com.echowire.articlestreamprocessor.deserializer.ArticleKafkaDeserializer;
+import com.echowire.articlestreamprocessor.config.kafka.KafkaConfig;
+import com.echowire.articlestreamprocessor.config.kafka.deserializer.ArticleKafkaDeserializer;
 import com.echowire.articlestreamprocessor.processor.EnrichmentFunction;
 import com.echowire.articlestreamprocessor.processor.FilteringFunction;
 import com.echowire.articlestreamprocessor.sink.MongoArticleSink;
-import com.echowire.core.model.Article;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.slf4j.Logger;

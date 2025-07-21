@@ -1,4 +1,4 @@
-package com.echowire.articlestreamprocessor.deserializer;
+package com.echowire.articlestreamprocessor.config.kafka.deserializer;
 
 import com.echowire.core.model.Article;
 import com.fasterxml.jackson.databind.ObjectMapper;

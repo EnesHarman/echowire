@@ -1,4 +1,4 @@
-package com.echowire.articlestreamprocessor.config;
+package com.echowire.articlestreamprocessor.config.kafka;
 
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
