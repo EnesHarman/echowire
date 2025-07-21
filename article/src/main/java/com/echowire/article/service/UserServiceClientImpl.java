@@ -18,7 +18,7 @@ public class UserServiceClientImpl implements UserServiceClient {
     @Override
     public UserPreferences getPreferences(String userId) {
         return restClient.get()
-                .uri("/users/{id}/preferences", userId)
+                .uri("v1/user/{id}/preferences", userId)
                 .retrieve()
                 .body(UserPreferences.class);
     }
