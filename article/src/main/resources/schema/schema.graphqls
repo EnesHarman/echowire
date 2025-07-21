@@ -1,6 +1,6 @@
 
 type Query {
-    articles(limit: Int = 10): [Article]
+    articles(request: ArticleRequest): [Article]
     articleByLink(link: String): Article
     articlesByPreference: [Article]
 }
@@ -12,4 +12,13 @@ type Article {
     description: String
     publishDate: String
     category: String
+}
+
+input ArticleRequest {
+    page: Int = 1
+    limit: Int = 10
+    title: String
+    category: String
+    source: String
+    publishDate: String
 }

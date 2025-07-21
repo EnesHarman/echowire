@@ -18,8 +18,8 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
         <module name="user-service" />
-        <module name="gateway" />
         <module name="article" />
+        <module name="gateway" />
         <module name="news-ingest" />
       </profile>
     </annotationProcessing>

@@ -1,5 +1,7 @@
 package com.echowire.article.datafetchers;
 
+import com.echowire.article.dto.request.ArticleRequest;
+import com.echowire.article.dto.response.ArticleResponse;
 import com.echowire.article.model.ArticleEntity;
 import com.echowire.article.service.ArticleService;
 import com.echowire.core.model.Article;
@@ -15,24 +17,20 @@ import java.util.List;
 
 @DgsComponent
 public class ArticleDataFetcher {
-
-    private final MongoTemplate mongoTemplate;
     private final ArticleService articleService;
 
-    public ArticleDataFetcher(MongoTemplate mongoTemplate, ArticleService articleService) {
-        this.mongoTemplate = mongoTemplate;
+    public ArticleDataFetcher(ArticleService articleService) {
         this.articleService = articleService;
     }
 
     @DgsQuery
-    public List<Article> articles(@InputArgument Integer limit) {
-        Query query = new Query().limit(limit != null ? limit : 10);
-        return mongoTemplate.find(query, Article.class, "articles");
+    public List<ArticleResponse> articles(@InputArgument ArticleRequest request) {
+        return articleService.getArticles(request);
     }
 
     @DgsQuery
-    public Article articleByLink(@InputArgument String link) {
-        return mongoTemplate.findOne(Query.query(Criteria.where("link").is(link)), Article.class, "articles");
+    public ArticleResponse articleByLink(@InputArgument String link) {
+        return articleService.getArticleByLink(link);
     }
 
     @DgsQuery
