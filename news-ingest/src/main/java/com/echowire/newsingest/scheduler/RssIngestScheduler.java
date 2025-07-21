@@ -1,6 +1,7 @@
 package com.echowire.newsingest.scheduler;
 
 import com.echowire.core.model.Article;
+import com.echowire.newsingest.domain.service.ArticleService;
 import com.echowire.newsingest.infrastructure.ArticlePublisher;
 import com.echowire.newsingest.infrastructure.RssFieldClient;
 import org.slf4j.Logger;
@@ -23,12 +24,12 @@ public class RssIngestScheduler {
     private static final Logger log = LoggerFactory.getLogger(RssIngestScheduler.class);
 
     private final RssFieldClient rssFieldClient;
-    private final ArticlePublisher articlePublisher;
+    private final ArticleService articleService;
     private final ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
-    public RssIngestScheduler(RssFieldClient rssFieldClient, ArticlePublisher articlePublisher) {
+    public RssIngestScheduler(RssFieldClient rssFieldClient, ArticleService articleService) {
         this.rssFieldClient = rssFieldClient;
-        this.articlePublisher = articlePublisher;
+        this.articleService = articleService;
     }
 
     @Scheduled(fixedRate = 5 * 60 * 1000)
@@ -47,7 +48,7 @@ public class RssIngestScheduler {
 
                     log.info("Fetched {} articles. Publishing to Kafka…", articles.size());
                     for (Article article : articles) {
-                        articlePublisher.publish(article);
+                        articleService.publish(article);
                     }
 
                     log.info("All articles published successfully");
