@@ -2,6 +2,7 @@
 type Query {
     articles(limit: Int = 10): [Article]
     articleByLink(link: String): Article
+    articlesByPreference: [Article]
 }
 
 type Article {

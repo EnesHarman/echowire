@@ -39,6 +39,7 @@ public class JwtAuthFilter implements WebFilter {
 
                 ServerWebExchange mutatedExchange = exchange.mutate()
                         .request(exchange.getRequest().mutate()
+                                .header("X-Gateway-Authorized", "true")
                                 .header("X-User-Id", userId)
                                 .header("X-User-Email", email != null ? email : "")
                                 .header("X-User-Roles", String.join(",", roles))

@@ -1,6 +1,6 @@
 package com.echowire.article.datafetchers;
 
-import com.echowire.article.core.threadlocal.ECThreadLocal;
+import com.echowire.article.service.ArticleService;
 import com.echowire.core.model.Article;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
@@ -15,24 +15,29 @@ import java.util.List;
 @DgsComponent
 public class ArticleDataFetcher {
 
-
     private final MongoTemplate mongoTemplate;
+    private final ArticleService articleService;
 
-    public ArticleDataFetcher(MongoTemplate mongoTemplate) {
+    public ArticleDataFetcher(MongoTemplate mongoTemplate, ArticleService articleService) {
         this.mongoTemplate = mongoTemplate;
+        this.articleService = articleService;
     }
 
     @DgsQuery
     public List<Article> articles(@InputArgument Integer limit) {
         Query query = new Query().limit(limit != null ? limit : 10);
-        ECThreadLocal.get().userId();
         return mongoTemplate.find(query, Article.class, "articles");
     }
 
     @DgsQuery
-    @PreAuthorize("hasRole('USER')")
     public Article articleByLink(@InputArgument String link) {
         return mongoTemplate.findOne(Query.query(Criteria.where("link").is(link)), Article.class, "articles");
+    }
+
+    @DgsQuery
+    @PreAuthorize("hasRole('USER')")
+    public List<Article> articlesByPreference() {
+        return articleService.getArticlesByPreference();
     }
 
 
