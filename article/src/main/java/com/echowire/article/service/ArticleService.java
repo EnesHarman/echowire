@@ -1,10 +1,9 @@
 package com.echowire.article.service;
 
-import com.echowire.core.model.Article;
+import com.echowire.article.model.ArticleEntity;
 
 import java.util.List;
 
 public interface ArticleService {
-
-    List<Article> getArticlesByPreference();
+    List<ArticleEntity> getArticlesByPreference();
 }

@@ -1,6 +1,7 @@
 package com.echowire.article.service;
 
 import com.echowire.article.core.threadlocal.ECThreadLocal;
+import com.echowire.article.model.ArticleEntity;
 import com.echowire.article.repository.ArticleRepository;
 import com.echowire.core.model.Article;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getArticlesByPreference() {
+    public List<ArticleEntity> getArticlesByPreference() {
         var userInfo = ECThreadLocal.get();
         var preference = userServiceClient.getPreferences(userInfo.userId());
         return articleRepository.findByCategoryIn(preference.categories());

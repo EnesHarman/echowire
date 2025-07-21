@@ -19,6 +19,7 @@ public class UserServiceClientImpl implements UserServiceClient {
     public UserPreferences getPreferences(String userId) {
         return restClient.get()
                 .uri("v1/user/{id}/preferences", userId)
+                .header("X-Gateway-Authorized", "true")
                 .retrieve()
                 .body(UserPreferences.class);
     }

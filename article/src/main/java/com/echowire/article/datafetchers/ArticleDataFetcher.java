@@ -1,5 +1,6 @@
 package com.echowire.article.datafetchers;
 
+import com.echowire.article.model.ArticleEntity;
 import com.echowire.article.service.ArticleService;
 import com.echowire.core.model.Article;
 import com.netflix.graphql.dgs.DgsComponent;
@@ -36,7 +37,7 @@ public class ArticleDataFetcher {
 
     @DgsQuery
     @PreAuthorize("hasRole('USER')")
-    public List<Article> articlesByPreference() {
+    public List<ArticleEntity> articlesByPreference() {
         return articleService.getArticlesByPreference();
     }
 
