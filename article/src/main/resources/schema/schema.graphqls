@@ -2,7 +2,7 @@
 type Query {
     articles(request: ArticleRequest): [Article]
     articleByLink(link: String): Article
-    articlesByPreference: [Article]
+    articlesByPreference(pagination: PaginatedRequest): [Article]
 }
 
 type Article {
@@ -21,4 +21,9 @@ input ArticleRequest {
     category: String
     source: String
     publishDate: String
+}
+
+input PaginatedRequest {
+    page: Int = 1
+    limit: Int = 10
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @Document("articles")
@@ -14,7 +15,7 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ArticleEntity {
+public class ArticleEntity implements Serializable {
     @Id
     String id;
     String title;

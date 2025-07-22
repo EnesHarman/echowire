@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ArticleCustomRepository {
     List<ArticleEntity> getArticles(ArticleRequest request);
+    List<ArticleEntity> findPreferences(List<String> categories, Integer limit, Integer page);
 }

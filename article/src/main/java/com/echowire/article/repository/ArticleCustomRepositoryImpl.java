@@ -28,7 +28,7 @@ public class ArticleCustomRepositoryImpl implements ArticleCustomRepository {
         if (request.source() != null && !request.source().isBlank()) {
             conditions.add(Criteria.where("source").is(request.source()));
         }
-        if (request.category() != null && !request.category().isBlank())  {
+        if (request.category() != null && !request.category().isBlank()) {
             conditions.add(Criteria.where("category").is(request.category()));
         }
 
@@ -37,7 +37,15 @@ public class ArticleCustomRepositoryImpl implements ArticleCustomRepository {
             combined.andOperator(conditions);
         }
         Query query = new Query(combined);
-        query.skip( (request.page() - 1) * request.limit()).limit(request.limit());
+        query.skip((request.page() - 1) * request.limit()).limit(request.limit());
+        return mongoTemplate.find(query, ArticleEntity.class);
+    }
+
+
+    @Override
+    public List<ArticleEntity> findPreferences(List<String> categories, Integer limit, Integer page) {
+        Query query = new Query(Criteria.where("category").in(categories));
+        query.skip((page - 1) * limit).limit(limit);
         return mongoTemplate.find(query, ArticleEntity.class);
     }
 }

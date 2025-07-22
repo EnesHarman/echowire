@@ -5,6 +5,9 @@ spring:
     graphiql:
       enabled: true
   data:
+    redis:
+      host: localhost
+      port: 6379
     mongodb:
       uri: mongodb://localhost:27017
       database: echowire

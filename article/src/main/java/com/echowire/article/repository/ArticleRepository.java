@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface ArticleRepository extends MongoRepository<ArticleEntity, String>, ArticleCustomRepository {
-    List<ArticleEntity> findByCategoryIn(List<String> categories);
 
     Optional<ArticleEntity> findByLink(String link);
 }

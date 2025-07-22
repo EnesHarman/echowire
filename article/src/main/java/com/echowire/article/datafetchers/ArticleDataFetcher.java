@@ -1,6 +1,8 @@
 package com.echowire.article.datafetchers;
 
+import com.echowire.article.core.threadlocal.ECThreadLocal;
 import com.echowire.article.dto.request.ArticleRequest;
+import com.echowire.article.dto.request.PaginatedRequest;
 import com.echowire.article.dto.response.ArticleResponse;
 import com.echowire.article.model.ArticleEntity;
 import com.echowire.article.service.ArticleService;
@@ -35,8 +37,9 @@ public class ArticleDataFetcher {
 
     @DgsQuery
     @PreAuthorize("hasRole('USER')")
-    public List<ArticleEntity> articlesByPreference() {
-        return articleService.getArticlesByPreference();
+    public List<ArticleEntity> articlesByPreference(@InputArgument PaginatedRequest pagination) {
+        var userInfo = ECThreadLocal.get();
+        return articleService.getArticlesByPreference(userInfo, pagination);
     }
 
 
