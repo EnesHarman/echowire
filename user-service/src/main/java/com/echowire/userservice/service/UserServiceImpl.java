@@ -29,8 +29,6 @@ public class UserServiceImpl extends UserPreferenceServiceGrpc.UserPreferenceSer
         var user = userOpt.get();
         var preferences = UserPreferences.newBuilder()
                 .addAllCategories(user.getPreferredCategories())
-                .addAllSources(user.getPreferredSources())
-                .setLanguage(user.getLanguage())
                 .build();
         responseObserver.onNext(preferences);
         responseObserver.onCompleted();
