@@ -6,8 +6,11 @@ import com.echowire.article.dto.request.PaginatedRequest;
 import com.echowire.article.dto.response.ArticleResponse;
 import com.echowire.article.model.ArticleEntity;
 import com.echowire.article.repository.ArticleRepository;
+import com.echowire.user_preference.UserPreferenceServiceGrpc;
+import com.echowire.user_preference.UserPreferences;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import com.echowire.user_preference.UserPreferencesRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,21 +18,19 @@ import java.util.stream.Collectors;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-
     private final ArticleRepository articleRepository;
+    private final UserPreferenceServiceGrpc.UserPreferenceServiceBlockingStub userPreferenceServiceBlockingStub;
 
-    private final UserServiceClient userServiceClient;
-
-    public ArticleServiceImpl(ArticleRepository articleRepository, UserServiceClient userServiceClient) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, UserPreferenceServiceGrpc.UserPreferenceServiceBlockingStub userPreferenceServiceBlockingStub) {
         this.articleRepository = articleRepository;
-        this.userServiceClient = userServiceClient;
+        this.userPreferenceServiceBlockingStub = userPreferenceServiceBlockingStub;
     }
 
     @Override
     @Cacheable(value = "preferences", key = "#userInfo.userId() + #pagination.hashCode()")
     public List<ArticleEntity> getArticlesByPreference(UserInfo userInfo, PaginatedRequest pagination) {;
-        var preference = userServiceClient.getPreferences(userInfo.userId());
-        return articleRepository.findPreferences(preference.categories(), pagination.limit(), pagination.page());
+        UserPreferences userPreferences = userPreferenceServiceBlockingStub.getUserPreferences(UserPreferencesRequest.newBuilder().setId(userInfo.userId()).build());
+        return articleRepository.findPreferences(userPreferences.getCategoriesList(), pagination.limit(), pagination.page());
     }
 
     @Override

@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.echowire.user_preference;
+
+service UserPreferenceService {
+  rpc getUserPreferences(UserPreferencesRequest) returns (UserPreferences);
+}
+
+message UserPreferencesRequest {
+  string  id = 1;
+}
+
+message UserPreferences {
+  repeated string categories = 1;
+  repeated string sources = 2;
+  string language = 3;
+}

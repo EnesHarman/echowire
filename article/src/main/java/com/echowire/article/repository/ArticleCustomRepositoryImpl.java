@@ -22,14 +22,16 @@ public class ArticleCustomRepositoryImpl implements ArticleCustomRepository {
     @Override
     public List<ArticleEntity> getArticles(ArticleRequest request) {
         List<Criteria> conditions = new ArrayList<>();
-        if (request.title() != null && !request.title().isBlank()) {
-            conditions.add(Criteria.where("title").regex(request.title(), "i"));
-        }
-        if (request.source() != null && !request.source().isBlank()) {
-            conditions.add(Criteria.where("source").is(request.source()));
-        }
-        if (request.category() != null && !request.category().isBlank()) {
-            conditions.add(Criteria.where("category").is(request.category()));
+        if (request != null) {
+            if (request.title() != null && !request.title().isBlank()) {
+                conditions.add(Criteria.where("title").regex(request.title(), "i"));
+            }
+            if (request.source() != null && !request.source().isBlank()) {
+                conditions.add(Criteria.where("source").is(request.source()));
+            }
+            if (request.category() != null && !request.category().isBlank()) {
+                conditions.add(Criteria.where("category").is(request.category()));
+            }
         }
 
         var combined = new Criteria();

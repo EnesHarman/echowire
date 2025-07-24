@@ -1,1 +1,8 @@
 /Users/enesharman/EchoWire/echo/core/src/main/java/com/echowire/core/model/Article.java
+/Users/enesharman/EchoWire/echo/core/src/main/java/com/echowire/core/model/UserPreferences.java
+/Users/enesharman/EchoWire/echo/core/target/generated-sources/protobuf/grpc-java/com/echowire/user_preference/UserPreferenceServiceGrpc.java
+/Users/enesharman/EchoWire/echo/core/target/generated-sources/protobuf/java/com/echowire/user_preference/UserPreferences.java
+/Users/enesharman/EchoWire/echo/core/target/generated-sources/protobuf/java/com/echowire/user_preference/UserPreferencesOrBuilder.java
+/Users/enesharman/EchoWire/echo/core/target/generated-sources/protobuf/java/com/echowire/user_preference/UserPreferencesRequest.java
+/Users/enesharman/EchoWire/echo/core/target/generated-sources/protobuf/java/com/echowire/user_preference/UserPreferencesRequestOrBuilder.java
+/Users/enesharman/EchoWire/echo/core/target/generated-sources/protobuf/java/com/echowire/user_preference/UserService.java

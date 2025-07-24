@@ -1,16 +1,18 @@
 package com.echowire.userservice.service;
 
-import com.echowire.core.model.UserPreferences;
+import com.echowire.user_preference.UserPreferencesRequest;
 import com.echowire.userservice.core.exception.UserNotFoundException;
 import com.echowire.userservice.model.User;
 import com.echowire.userservice.repository.UserRepository;
+import io.grpc.stub.StreamObserver;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
+import com.echowire.user_preference.UserPreferenceServiceGrpc;
+import com.echowire.user_preference.UserPreferences;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends UserPreferenceServiceGrpc.UserPreferenceServiceImplBase implements UserService {
 
     private final UserRepository userRepository;
 
@@ -19,13 +21,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserPreferences getUserPreferences(String id) {
-        Optional<User> userOpt = userRepository.findById(id);
+    public void getUserPreferences(UserPreferencesRequest request, StreamObserver<UserPreferences> responseObserver) {
+        Optional<User> userOpt = userRepository.findById(request.getId());
         if (userOpt.isEmpty()) {
             throw new UserNotFoundException("There is no such a user with given credentials.", HttpStatus.BAD_REQUEST, 315);
         }
         var user = userOpt.get();
-
-        return new UserPreferences(user.getPreferredCategories(), user.getPreferredSources(), user.getLanguage());
+        var preferences = UserPreferences.newBuilder()
+                .addAllCategories(user.getPreferredCategories())
+                .addAllSources(user.getPreferredSources())
+                .setLanguage(user.getLanguage())
+                .build();
+        responseObserver.onNext(preferences);
+        responseObserver.onCompleted();
     }
 }

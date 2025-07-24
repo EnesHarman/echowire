@@ -1,4 +1,9 @@
 spring:
+  grpc:
+    client:
+      channels:
+        userPreferenceService:
+          address: localhost:8092
   application:
     name: article
   graphql:
